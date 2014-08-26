@@ -218,10 +218,7 @@ cursor_no = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
 SDL_Window* sdl_window; 
 void* context;
 int sdl_window_flags =
-    SDL_WINDOW_OPENGL | 
-    // SDL_WINDOW_RESIZABLE |
-    SDL_WINDOW_INPUT_GRABBED | 
-    SDL_WINDOW_BORDERLESS;
+    SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS;
 sdl_window = SDL_CreateWindow("main", 50, 50, window_x, window_y, sdl_window_flags);
 context = SDL_GL_CreateContext(sdl_window);
 glEnable(GL_DEPTH_TEST);
@@ -299,10 +296,7 @@ switch (step)
 }
 
 //generate exit
-creature * exitptr;
-exitptr ? free(exitptr) : 0;
-exitptr = malloc(sizeof(creature));
-creature exit = *exitptr;
+creature exit;
 exitOpen=0;
 
 do { exit.x=rand()%100; exit.y=rand()%100; 
@@ -373,7 +367,7 @@ while ( SDL_PollEvent(&event) ) {
             break; 
 
         case SDL_MOUSEBUTTONDOWN:
-            SDL_SetWindowGrab(sdl_window , 1);
+            // SDL_SetWindowGrab(sdl_window , 1);
             if (event.button.button == SDL_BUTTON_LEFT) mouse_button_one=1;
             if (event.button.button == SDL_BUTTON_RIGHT) mouse_button_two=1;
         
@@ -381,7 +375,7 @@ while ( SDL_PollEvent(&event) ) {
                 main_running = 0 ; break;} // quit
 
             if ( mouse_button_one && mouse_x > window_x - 10 && mouse_y > window_y - 10 ){
-                SDL_SetWindowGrab(sdl_window , 0); break;} //clicking corner frees mouse
+                /*SDL_SetWindowGrab(sdl_window , 0);*/ break;} //clicking corner frees mouse
             break;
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button == SDL_BUTTON_LEFT)
